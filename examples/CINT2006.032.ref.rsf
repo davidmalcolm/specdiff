@@ -1,0 +1,147 @@
+spec.cpu2006.hw_avail: --
+spec.cpu2006.hw_cpu_char: 
+spec.cpu2006.hw_cpu_mhz: --
+spec.cpu2006.hw_cpu_name: --
+spec.cpu2006.hw_disk: --
+spec.cpu2006.hw_fpu: --
+spec.cpu2006.hw_memory: --
+spec.cpu2006.hw_model: --
+spec.cpu2006.hw_nchips: --
+spec.cpu2006.hw_ncores: --
+spec.cpu2006.hw_ncoresperchip: --
+spec.cpu2006.hw_ncpuorder: --
+spec.cpu2006.hw_nthreadspercore: --
+spec.cpu2006.hw_ocache: --
+spec.cpu2006.hw_other: --
+spec.cpu2006.hw_pcache: --
+spec.cpu2006.hw_scache: --
+spec.cpu2006.hw_tcache: --
+spec.cpu2006.hw_vendor: --
+spec.cpu2006.license_num: --
+spec.cpu2006.prepared_by: --
+spec.cpu2006.sw_avail: --
+spec.cpu2006.sw_base_ptrsize: --
+spec.cpu2006.sw_compiler: gcc-build: experiment
+spec.cpu2006.sw_file: --
+spec.cpu2006.sw_os: --
+spec.cpu2006.sw_other: --
+spec.cpu2006.sw_parallel_other: --
+spec.cpu2006.sw_peak_ptrsize: Not Applicable
+spec.cpu2006.sw_state: --
+spec.cpu2006.test_date: Apr-2017
+spec.cpu2006.test_sponsor: --
+spec.cpu2006.tester: --
+# =============== do not edit below this point ===================
+spec.cpu2006.rawhash: a680ce9b36ef038b99aac9f316dd8cbe
+spec.cpu2006.base_copies: 1
+spec.cpu2006.basemean: --
+spec.cpu2006.basepeak: 0
+spec.cpu2006.cfidx000: *c3dfY29tcGlsZXI6OSxzd19wZWFrX3B0cnNpemU6NTIsdG9vbHNfYWRkZWRfZGVmYXVsdF9zZWN0
+spec.cpu2006.cfidx001: aW9uOjUx
+spec.cpu2006.errors000: 'reportable' flag not set during run
+spec.cpu2006.errors001: 471.omnetpp (base) did not have enough runs!
+spec.cpu2006.errors002: 456.hmmer (base) did not have enough runs!
+spec.cpu2006.errors003: 445.gobmk (base) did not have enough runs!
+spec.cpu2006.errors004: 458.sjeng (base) did not have enough runs!
+spec.cpu2006.errors005: 429.mcf (base) did not have enough runs!
+spec.cpu2006.errors006: 473.astar (base) did not have enough runs!
+spec.cpu2006.errors007: 483.xalancbmk (base) did not have enough runs!
+spec.cpu2006.errors008: 400.perlbench (base) did not have enough runs!
+spec.cpu2006.errors009: 464.h264ref (base) did not have enough runs!
+spec.cpu2006.errors010: 462.libquantum (base) did not have enough runs!
+spec.cpu2006.errors011: 403.gcc (base) did not have enough runs!
+spec.cpu2006.ext: experiment
+spec.cpu2006.invalid: 1
+spec.cpu2006.lognum: 032
+spec.cpu2006.mach: default
+spec.cpu2006.mean_anyway: 0
+spec.cpu2006.metric: CINT2006
+spec.cpu2006.name: int
+spec.cpu2006.peakmean: Not Run
+spec.cpu2006.rate: 0
+spec.cpu2006.rawconfig000: @eNq1VNtO20AQfd+vWIlHcBwuiiqkPASXVJEoRCVIaV+s8XrsbLPe3e6FBL6+YwcCiEtRBX6xEs+c
+spec.cpu2006.rawconfig001: OTNn5uzwib42AoI0mgvTNKBLrqTGY7bD04VpMC3hWpapMKXUdXKYFqjFogG3pJ+p1D6AUqmw8aDf
+spec.cpu2006.rawconfig002: H6SF1KmL2lsUPEmE0ZWsX4aphUiKKFWZBvQhxbVFJxvUIV1/GeSDo8SKhHjEdVLr+BDdE1VNzEwM
+spec.cpu2006.rawconfig003: NobcGRP4CjzX9I4eS14Zx8NCek4s2M4HPkzW2jjM0TnjPB/yG/QsRI18+wx5AR4ZrgN//OdDa+yO
+spec.cpu2006.rawconfig004: NpFsINAn8IIxv8pp8FYqdG34ttXjx5mM+lHSt0nFrbSMlVhBVGH4yvuYsQaWWCmoW7LJ7/0Bo7ll
+spec.cpu2006.rawconfig005: 94U8KhSt6CzLnrD9ALHul6JdBspk2Xz+mRV2d9n4c3sgvYID3Q7whBTmxgbZyNvuaLZCtNo/VyG7
+spec.cpu2006.rawconfig006: mM4m3ye/TjfMkosDnlTaJD44KUICSoInfu2MHiLfiBu/E4+oTok1FFLJcMPH7R7sddex6ZZ3rbJ/
+spec.cpu2006.rawconfig007: sJ9e/JiNTiZnk9nPttjXy+lplmfTq/xsOjhi7Kjf79EUVWcJr29i9jrM5Pxqns87rMFBT8niTwQd
+spec.cpu2006.rawconfig008: YvM+sCF/BkZAXw57a1CgRdEs38CZz58gvQS031u56n/6ykaXp/n4bPTtBVjWajNbIImhlFmRWHSM
+spec.cpu2006.rawconfig009: 3Sl2TgZlSTYGMRiyCCloB2/2eGvKZKYBaC0pOgTK8uRzEAirlGXnf2AtguNS0wfaUSdrqUHxjQlH
+spec.cpu2006.rawconfig010: t7H4iq5/jxeRbBMd3lULpk0hKAerLoJDFdB1OOQ7PbZtmbyKiixzG5yXt0hdn1PlkbWKqBYK/wJ3
+spec.cpu2006.rawconfig011: Hwl8
+spec.cpu2006.runspecver: 6152
+spec.cpu2006.size: ref
+spec.cpu2006.submit: 0
+spec.cpu2006.suitever: 1.1
+spec.cpu2006.table: 1
+spec.cpu2006.time: 1492032050
+spec.cpu2006.toolset: linux-suse101-AMD64
+spec.cpu2006.toolvers000: @eNplkMkOgyAURX+IGK2K0m2Trt10bShBSwo+wtD+fkGMU3fvnjffW/e4SzrajhrLTabVtW7aCj35
+spec.cpu2006.toolvers001: xF6KmnckuChJIpa7BeAV9AyUginTMvEgNTU86nkUg2kQY0pX7SJ3TXPREG7wTkj7T/alhORoAKOo
+spec.cpu2006.toolvers002: Wy+VwrpBSD4DQgokgVG3rZew7C6bGJ8Xh1g4MLNucY1guwDsuRi80971hn7Xb3X0Lak6R8ZPVnMW
+spec.cpu2006.toolvers003: xQUFb7xOKYxR/GU1IYqDbxVBnzDpwOrqB7LfiQs=
+spec.cpu2006.tunelist000: base
+spec.cpu2006.units: SPECint
+spec.cpu2006.valid: X
+spec.cpu2006.results.401_bzip2.base.000.basepeak: 0
+spec.cpu2006.results.401_bzip2.base.000.benchmark: 401.bzip2
+spec.cpu2006.results.401_bzip2.base.000.clcopies: 1
+spec.cpu2006.results.401_bzip2.base.000.copytime000: 570.200147
+spec.cpu2006.results.401_bzip2.base.000.dp: 6
+spec.cpu2006.results.401_bzip2.base.000.ext: experiment
+spec.cpu2006.results.401_bzip2.base.000.iteration: 0
+spec.cpu2006.results.401_bzip2.base.000.mach: default
+spec.cpu2006.results.401_bzip2.base.000.rate: 0
+spec.cpu2006.results.401_bzip2.base.000.ratio: 16.923865
+spec.cpu2006.results.401_bzip2.base.000.rc: 0
+spec.cpu2006.results.401_bzip2.base.000.reference: 9650
+spec.cpu2006.results.401_bzip2.base.000.reported_nsec: 200725000
+spec.cpu2006.results.401_bzip2.base.000.reported_sec: 570
+spec.cpu2006.results.401_bzip2.base.000.reported_time: 570.200725
+spec.cpu2006.results.401_bzip2.base.000.selected: 1
+spec.cpu2006.results.401_bzip2.base.000.submit: 0
+spec.cpu2006.results.401_bzip2.base.000.valid: S
+spec.cpu2006.results.401_bzip2.base.001.basepeak: 0
+spec.cpu2006.results.401_bzip2.base.001.benchmark: 401.bzip2
+spec.cpu2006.results.401_bzip2.base.001.clcopies: 1
+spec.cpu2006.results.401_bzip2.base.001.copytime000: 570.6537
+spec.cpu2006.results.401_bzip2.base.001.dp: 6
+spec.cpu2006.results.401_bzip2.base.001.ext: experiment
+spec.cpu2006.results.401_bzip2.base.001.iteration: 1
+spec.cpu2006.results.401_bzip2.base.001.mach: default
+spec.cpu2006.results.401_bzip2.base.001.rate: 0
+spec.cpu2006.results.401_bzip2.base.001.ratio: 16.910422
+spec.cpu2006.results.401_bzip2.base.001.rc: 0
+spec.cpu2006.results.401_bzip2.base.001.reference: 9650
+spec.cpu2006.results.401_bzip2.base.001.reported_nsec: 653997000
+spec.cpu2006.results.401_bzip2.base.001.reported_sec: 570
+spec.cpu2006.results.401_bzip2.base.001.reported_time: 570.653997
+spec.cpu2006.results.401_bzip2.base.001.selected: 0
+spec.cpu2006.results.401_bzip2.base.001.submit: 0
+spec.cpu2006.results.401_bzip2.base.001.valid: S
+spec.cpu2006.results.401_bzip2.base.002.basepeak: 0
+spec.cpu2006.results.401_bzip2.base.002.benchmark: 401.bzip2
+spec.cpu2006.results.401_bzip2.base.002.clcopies: 1
+spec.cpu2006.results.401_bzip2.base.002.copytime000: 569.940438
+spec.cpu2006.results.401_bzip2.base.002.dp: 6
+spec.cpu2006.results.401_bzip2.base.002.ext: experiment
+spec.cpu2006.results.401_bzip2.base.002.iteration: 2
+spec.cpu2006.results.401_bzip2.base.002.mach: default
+spec.cpu2006.results.401_bzip2.base.002.rate: 0
+spec.cpu2006.results.401_bzip2.base.002.ratio: 16.931585
+spec.cpu2006.results.401_bzip2.base.002.rc: 0
+spec.cpu2006.results.401_bzip2.base.002.reference: 9650
+spec.cpu2006.results.401_bzip2.base.002.reported_nsec: 940731000
+spec.cpu2006.results.401_bzip2.base.002.reported_sec: 569
+spec.cpu2006.results.401_bzip2.base.002.reported_time: 569.940731
+spec.cpu2006.results.401_bzip2.base.002.selected: 0
+spec.cpu2006.results.401_bzip2.base.002.submit: 0
+spec.cpu2006.results.401_bzip2.base.002.valid: S
+spec.cpu2006.compopts000.401_bzip2.base: @eNq1UU1vgjAYvvMrmt67Zpshi1ETBWbY0DaKh+1CoBTWDVtDi3H/fgVjcFncSZ/00KR93vf5WCqJ
+spec.cpu2006.compopts001.401_bzip2.base: tukXL0TFgdoZoaQeOtrUgpmkbmQu6mTPa1F8j+E9dDyyoEOAP9SW4zzdixwzlQtZokdcMoayRlQ5
+spec.cpu2006.compopts002.401_bzip2.base: NlwbzA87S9tyafDhyU3cAdoxVAnZHFApGyykNmlV4UzIlgmQPeok4E4B5K9p4CUe3djr0g9mmzmw
+spec.cpu2006.compopts003.401_bzip2.base: QOQBoEIqdFSI0kqk2u4HR/SsJKLuAJww0qqpGZ843hB43hhe3wDsRpPZC6HxGP5yAx0bmZX0HE3n
+spec.cpu2006.compopts004.401_bzip2.base: a/v21xl0SEumcbgI3wP75YLLbhIlq3g6C6Mwfjsf1hmGThQuX29S0H/ZX4h9pLJPzoyegB59LG1g
+spec.cpu2006.compopts005.401_bzip2.base: kX+bLq4WZ6eRbNpKz/r8AUvQA2o=

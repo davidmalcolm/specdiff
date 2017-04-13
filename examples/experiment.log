@@ -1,0 +1,37 @@
+runspec v6152 - Copyright 1999-2008 Standard Performance Evaluation Corporation
+Using 'linux-suse101-AMD64' tools
+Reading MANIFEST... 18335 files
+Loading runspec modules................
+Locating benchmarks...found 31 benchmarks in 6 benchsets.
+Reading config file 'gcc-build.cfg'
+Benchmarks selected: 401.bzip2
+Compiling Binaries
+  Building 401.bzip2 base experiment default: (build_base_experiment.0000)
+
+Build successes: 401.bzip2(base)
+
+Setting Up Run Directories
+  Setting up 401.bzip2 ref base experiment default: created (run_base_ref_experiment.0001)
+Running Benchmarks
+  Running (#1) 401.bzip2 ref base experiment default
+  Running (#2) 401.bzip2 ref base experiment default
+  Running (#3) 401.bzip2 ref base experiment default
+Success: 3x401.bzip2
+Producing Raw Reports
+mach: default
+  ext: experiment
+    size: ref
+      set: int
+        format: raw -> examples/CINT2006.032.ref.rsf
+Parsing flags for 401.bzip2 base: done
+Doing flag reduction: done
+        format: ASCII -> examples/CINT2006.032.ref.txt
+      set: fp
+
+The log for this run is in CPU2006.032.log
+
+runspec finished at Wed Apr 12 17:50:00 2017; 1750 total seconds elapsed
+
+real	29m9.803s
+user	28m36.263s
+sys	0m5.553s

@@ -1,0 +1,139 @@
+#!/usr/bin/python
+
+from collections import OrderedDict
+import pprint
+import re
+import sys
+import unittest
+
+PAT = r'spec.([a-z0-9]+).results.([_a-z0-9]+).base.([0-9]+).reported_time'
+
+class Result:
+    """
+    Parse a raw SPEC result (.rsf in SPEC2006, .raw for SPEC2000)
+    """
+    def __init__(self, result_path):
+        self.metadata = {} # OrderedDict()
+        # Map of benchmark names to lists of floats
+        self.results = {} # OrderedDict()
+        with open(result_path) as f:
+            for line in f:
+                #print(repr(line))
+                m = re.match(r'^([_a-zA-Z0-9\.]+): (.*)$', line)
+                if m:
+                    key, value = m.groups()
+                    self.handle_kv_line(key, value)
+        if 0:
+            pprint.pprint(self.metadata)
+            pprint.pprint(self.results)
+
+    def handle_kv_line(self, key, value):
+        # print('raw_key: %r value: %r' % (raw_key, value))
+        # TODO: parse both base and peak
+        m = re.match(PAT, key)
+        if m:
+            suite, benchmark, index = m.groups()
+            benchmark = benchmark.replace('_', '.')
+            index = int(index, 10)
+            value = float(value)
+            foo_key = '%s %s' % (suite, benchmark)
+            if foo_key in self.results:
+                self.results[foo_key].append(value)
+            else:
+                self.results[foo_key] = [value]
+        else:
+            self.handle_metadata_line(key, value)
+
+    def handle_metadata_line(self, key, value):
+        if value == '--':
+            return
+        if '.rawconfig' in key:
+            return
+        if '.results.' in key:
+            return
+        self.metadata[key] = value
+
+class Log:
+    def __init__(self, log_path):
+        self.log_path = log_path
+        self.result = None
+        # Parse the logfile
+        with open(log_path) as f:
+            for line in f:
+                # Locate the raw result file and read it
+                m = re.match(r'\s*format: raw -> (.*)', line)
+                if m:
+                    self.result = Result(m.group(1))
+
+def median(data):
+    # (taken from Python 3.4)
+    data = sorted(data)
+    n = len(data)
+    if n%2 == 1:
+        return data[n//2]
+    else:
+        i = n//2
+        return (data[i - 1] + data[i])/2
+
+def compare(path_a, path_b):
+    out = ''
+    log_a = Log(path_a)
+    log_b = Log(path_b)
+    r_a = log_a.result
+    r_b = log_b.result
+    out += 'Metadata differences:\n\n'
+    for key in r_a.metadata:
+        if key.endswith('.lognum'):
+            continue
+        if key.endswith('.rawhash'):
+            continue
+        if '.compopts' in key:
+            continue
+        m_a = r_a.metadata[key]
+        m_b = r_b.metadata[key]
+        if m_a != m_b:
+            out += '%-25s| %22s| %22s|\n' % (key, m_a, m_b)
+
+    out += '\nResults:\n\n'
+    out += '%20s| base\n' % ''
+    out += '%20s| %9s %9s %9s\n' % ('', 'old', 'new', '%change')
+    for key in r_a.results:
+        val_a = median(r_a.results[key])
+        val_b = median(r_b.results[key])
+        percent_delta = (100. * val_b / val_a) - 100.
+        out += ('%-20s| %9.3f %9.3f %+9.3f%%\n'
+                % (key, val_a, val_b, percent_delta))
+    return out
+
+class Tests(unittest.TestCase):
+    def test_parsing_log(self):
+        log = Log('examples/control.log')
+        r = log.result
+        self.assertEqual(r.metadata['spec.cpu2006.units'], 'SPECint')
+        self.assertEqual(r.results['cpu2006 401.bzip2'],
+                         [569.853521, 570.400417, 570.718513])
+
+    def test_comparison(self):
+        GOLD = '''\
+Metadata differences:
+
+spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
+spec.cpu2006.time        |             1492060566|             1492032050|
+spec.cpu2006.ext         |                control|             experiment|
+
+Results:
+
+                    | base
+                    |       old       new   %change
+cpu2006 401.bzip2   |   570.400   570.201    -0.035%
+'''
+        out = compare('examples/control.log', 'examples/experiment.log')
+        self.maxDiff = None
+        self.assertMultiLineEqual(GOLD, out)
+
+if len(sys.argv) == 1:
+    unittest.main()
+else:
+    path_a = sys.argv[1]
+    path_b = sys.argv[2]
+    print(compare(path_a, path_b))
