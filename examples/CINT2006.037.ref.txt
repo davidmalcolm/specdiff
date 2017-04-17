@@ -1,0 +1,199 @@
+##############################################################################
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+#                                                                            #
+# 'reportable' flag not set during run                                       #
+# 400.perlbench (base) did not have enough runs!                             #
+# 400.perlbench (base) had invalid runs!                                     #
+# Run of 400.perlbench (base) was not valid; status is CE                    #
+# Unknown flags were used! See                                               #
+#      http://www.spec.org/cpu2006/Docs/runspec.html#flagsurl                #
+# for information about how to get rid of this error.                        #
+# Error 400.perlbench: Error with make!                                      #
+#                                                                            #
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+##############################################################################
+                           SPEC(R) CINT2006 Summary
+                                    -- --
+                           Fri Apr 14 11:47:16 2017
+
+CPU2006 License: 0                                       Test date: Apr-2017
+Test sponsor: --                             Hardware availability: --      
+Tested by:    --                             Software availability: --      
+
+                                  Estimated                       Estimated
+                Base     Base       Base        Peak     Peak       Peak
+Benchmarks      Ref.   Run Time     Ratio       Ref.   Run Time     Ratio
+-------------- ------  ---------  ---------    ------  ---------  ---------
+400.perlbench    9770         --            CE                                 
+401.bzip2        9650    572         16.9   S                                  
+401.bzip2        9650    570         16.9   S                                  
+401.bzip2        9650    571         16.9   *                                  
+403.gcc          8050    404         19.9   *                                  
+403.gcc          8050    404         19.9   S                                  
+403.gcc          8050    405         19.9   S                                  
+429.mcf          9120    495         18.4   *                                  
+429.mcf          9120    479         19.0   S                                  
+429.mcf          9120    514         17.7   S                                  
+445.gobmk       10490    572         18.3   *                                  
+445.gobmk       10490    570         18.4   S                                  
+445.gobmk       10490    574         18.3   S                                  
+456.hmmer        9330    565         16.5   S                                  
+456.hmmer        9330    556         16.8   S                                  
+456.hmmer        9330    557         16.8   *                                  
+458.sjeng       12100    699         17.3   *                                  
+458.sjeng       12100    699         17.3   S                                  
+458.sjeng       12100    697         17.4   S                                  
+462.libquantum  20720    984         21.1   *                                  
+462.libquantum  20720   1313         15.8   S                                  
+462.libquantum  20720    981         21.1   S                                  
+464.h264ref     22130    870         25.4   S                                  
+464.h264ref     22130    876         25.3   S                                  
+464.h264ref     22130    874         25.3   *                                  
+471.omnetpp      6250    377         16.6   S                                  
+471.omnetpp      6250    376         16.6   S                                  
+471.omnetpp      6250    376         16.6   *                                  
+473.astar        7020    467         15.0   S                                  
+473.astar        7020    465         15.1   *                                  
+473.astar        7020    465         15.1   S                                  
+483.xalancbmk    6900    330         20.9   *                                  
+483.xalancbmk    6900    329         21.0   S                                  
+483.xalancbmk    6900    331         20.8   S                                  
+==============================================================================
+400.perlbench                               NR                                 
+401.bzip2        9650    571         16.9   *                                  
+403.gcc          8050    404         19.9   *                                  
+429.mcf          9120    495         18.4   *                                  
+445.gobmk       10490    572         18.3   *                                  
+456.hmmer        9330    557         16.8   *                                  
+458.sjeng       12100    699         17.3   *                                  
+462.libquantum  20720    984         21.1   *                                  
+464.h264ref     22130    874         25.3   *                                  
+471.omnetpp      6250    376         16.6   *                                  
+473.astar        7020    465         15.1   *                                  
+483.xalancbmk    6900    330         20.9   *                                  
+ Est. SPECint(R)_base2006                --
+ Est. SPECint2006                                                   Not Run
+
+
+                                   HARDWARE
+                                   --------
+            CPU Name: --
+ CPU Characteristics:  
+             CPU MHz: --
+                 FPU: --
+      CPU(s) enabled: -1 cores, -1 chips, -1 cores/chip, -1 threads/core
+    CPU(s) orderable: --
+       Primary Cache: --
+     Secondary Cache: --
+            L3 Cache: --
+         Other Cache: --
+              Memory: --
+      Disk Subsystem: --
+      Other Hardware: --
+
+
+                                   SOFTWARE
+                                   --------
+    Operating System: --
+            Compiler: gcc-build: control
+       Auto Parallel: No
+         File System: --
+        System State: --
+       Base Pointers: --
+       Peak Pointers: Not Applicable
+      Other Software: --
+
+
+                              Base Unknown Flags
+                              ------------------
+      401.bzip2: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                 "-std=gnu90" (in CPORTABILITY)
+                 "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+        403.gcc: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                 "-std=gnu90" (in CPORTABILITY)
+                 "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+        429.mcf: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                 "-std=gnu90" (in CPORTABILITY)
+                 "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+      445.gobmk: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                 "-std=gnu90" (in CPORTABILITY)
+                 "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+      456.hmmer: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                 "-std=gnu90" (in CPORTABILITY)
+                 "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+      458.sjeng: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                 "-std=gnu90" (in CPORTABILITY)
+                 "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+ 462.libquantum: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                 "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+    464.h264ref: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                 "-std=gnu90 -fsigned-char" (in CPORTABILITY)
+                 "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+    471.omnetpp: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in CXX)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in LD)
+                 "-O2 -fno-strict-aliasing" (in CXXOPTIMIZE)
+
+      473.astar: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in CXX)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in LD)
+                 "-O2 -fno-strict-aliasing" (in CXXOPTIMIZE)
+
+  483.xalancbmk: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in CXX)
+                 "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in LD)
+                 "-O2 -fno-strict-aliasing" (in CXXOPTIMIZE)
+
+
+                            Base Portability Flags
+                            ----------------------
+      401.bzip2: -DSPEC_CPU_LP64
+        403.gcc: -DSPEC_CPU_LP64
+        429.mcf: -DSPEC_CPU_LP64
+      445.gobmk: -DSPEC_CPU_LP64
+      456.hmmer: -DSPEC_CPU_LP64
+      458.sjeng: -DSPEC_CPU_LP64
+ 462.libquantum: -DSPEC_CPU_LP64 -DSPEC_CPU_LINUX
+    464.h264ref: -DSPEC_CPU_LP64
+    471.omnetpp: -DSPEC_CPU_LP64
+      473.astar: -DSPEC_CPU_LP64
+  483.xalancbmk: -DSPEC_CPU_LP64 -DSPEC_CPU_LINUX
+
+
+    SPEC and SPECint are registered trademarks of the Standard Performance
+    Evaluation Corporation.  All other brand and product names appearing
+    in this result are trademarks or registered trademarks of their
+    respective holders.
+##############################################################################
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+#                                                                            #
+# 'reportable' flag not set during run                                       #
+# 400.perlbench (base) did not have enough runs!                             #
+# 400.perlbench (base) had invalid runs!                                     #
+# Run of 400.perlbench (base) was not valid; status is CE                    #
+# Unknown flags were used! See                                               #
+#      http://www.spec.org/cpu2006/Docs/runspec.html#flagsurl                #
+# for information about how to get rid of this error.                        #
+# Error 400.perlbench: Error with make!                                      #
+#                                                                            #
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+##############################################################################
+-----------------------------------------------------------------------------
+For questions about this result, please contact the tester.
+For other inquiries, please contact webmaster@spec.org.
+Copyright 2006-2008 Standard Performance Evaluation Corporation
+Tested with SPEC CPU2006 v1.1.
+Report generated on Sat Apr 15 01:50:53 2017 by CPU2006 ASCII formatter v6128.

@@ -1,0 +1,262 @@
+##############################################################################
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+#                                                                            #
+# 'reportable' flag not set during run                                       #
+# 450.soplex (base) did not have enough runs!                                #
+# 447.dealII (base) did not have enough runs!                                #
+# 416.gamess (base) had invalid runs!                                        #
+# 450.soplex (base) had invalid runs!                                        #
+# 447.dealII (base) had invalid runs!                                        #
+# Run of 416.gamess (base) was not valid; status is VE                       #
+# Run of 447.dealII (base) was not valid; status is CE                       #
+# Run of 450.soplex (base) was not valid; status is CE                       #
+# Unknown flags were used! See                                               #
+#      http://www.spec.org/cpu2006/Docs/runspec.html#flagsurl                #
+# for information about how to get rid of this error.                        #
+# Error 416.gamess: Output miscompare                                        #
+# Error 416.gamess: Output miscompare                                        #
+# Error 416.gamess: Output miscompare                                        #
+# Error 447.dealII: Error with make!                                         #
+# Error 450.soplex: Error with make!                                         #
+#                                                                            #
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+##############################################################################
+                           SPEC(R) CFP2006 Summary
+                                    -- --
+                           Fri Apr 14 11:47:16 2017
+
+CPU2006 License: 0                                       Test date: Apr-2017
+Test sponsor: --                             Hardware availability: --      
+Tested by:    --                             Software availability: --      
+
+                                  Estimated                       Estimated
+                Base     Base       Base        Peak     Peak       Peak
+Benchmarks      Ref.   Run Time     Ratio       Ref.   Run Time     Ratio
+-------------- ------  ---------  ---------    ------  ---------  ---------
+410.bwaves      13590    917         14.8   *                                  
+410.bwaves      13590    922         14.7   S                                  
+410.bwaves      13590    909         15.0   S                                  
+416.gamess      19580    298                VE                                 
+416.gamess      19580    295                VE                                 
+416.gamess      19580    296                VE                                 
+433.milc         9180    590         15.6   S                                  
+433.milc         9180    602         15.3   *                                  
+433.milc         9180    610         15.0   S                                  
+434.zeusmp       9100    687         13.2   *                                  
+434.zeusmp       9100    690         13.2   S                                  
+434.zeusmp       9100    686         13.3   S                                  
+435.gromacs      7140    498         14.3   *                                  
+435.gromacs      7140    498         14.3   S                                  
+435.gromacs      7140    498         14.3   S                                  
+436.cactusADM   11950    961         12.4   S                                  
+436.cactusADM   11950    957         12.5   *                                  
+436.cactusADM   11950    953         12.5   S                                  
+437.leslie3d     9400    655         14.4   S                                  
+437.leslie3d     9400    650         14.5   *                                  
+437.leslie3d     9400    644         14.6   S                                  
+444.namd         8020    497         16.1   S                                  
+444.namd         8020    496         16.2   *                                  
+444.namd         8020    495         16.2   S                                  
+447.dealII      11440         --            CE                                 
+450.soplex       8340         --            CE                                 
+453.povray       5320    254         21.0   S                                  
+453.povray       5320    254         20.9   S                                  
+453.povray       5320    254         21.0   *                                  
+454.calculix     8250   1089          7.58  S                                  
+454.calculix     8250   1088          7.59  *                                  
+454.calculix     8250   1086          7.59  S                                  
+459.GemsFDTD    10610    806         13.2   S                                  
+459.GemsFDTD    10610    818         13.0   S                                  
+459.GemsFDTD    10610    817         13.0   *                                  
+465.tonto        9840    727         13.5   S                                  
+465.tonto        9840    706         13.9   S                                  
+465.tonto        9840    708         13.9   *                                  
+470.lbm         13740    527         26.1   S                                  
+470.lbm         13740    526         26.1   *                                  
+470.lbm         13740    515         26.7   S                                  
+481.wrf         11170    799         14.0   S                                  
+481.wrf         11170    801         14.0   S                                  
+481.wrf         11170    800         14.0   *                                  
+482.sphinx3     19490    707         27.6   *                                  
+482.sphinx3     19490    708         27.5   S                                  
+482.sphinx3     19490    704         27.7   S                                  
+==============================================================================
+410.bwaves      13590    917         14.8   *                                  
+416.gamess                                  NR                                 
+433.milc         9180    602         15.3   *                                  
+434.zeusmp       9100    687         13.2   *                                  
+435.gromacs      7140    498         14.3   *                                  
+436.cactusADM   11950    957         12.5   *                                  
+437.leslie3d     9400    650         14.5   *                                  
+444.namd         8020    496         16.2   *                                  
+447.dealII                                  NR                                 
+450.soplex                                  NR                                 
+453.povray       5320    254         21.0   *                                  
+454.calculix     8250   1088          7.59  *                                  
+459.GemsFDTD    10610    817         13.0   *                                  
+465.tonto        9840    708         13.9   *                                  
+470.lbm         13740    526         26.1   *                                  
+481.wrf         11170    800         14.0   *                                  
+482.sphinx3     19490    707         27.6   *                                  
+ Est. SPECfp(R)_base2006                 --
+ Est. SPECfp2006                                                    Not Run
+
+
+                                   HARDWARE
+                                   --------
+            CPU Name: --
+ CPU Characteristics:  
+             CPU MHz: --
+                 FPU: --
+      CPU(s) enabled: -1 cores, -1 chips, -1 cores/chip, -1 threads/core
+    CPU(s) orderable: --
+       Primary Cache: --
+     Secondary Cache: --
+            L3 Cache: --
+         Other Cache: --
+              Memory: --
+      Disk Subsystem: --
+      Other Hardware: --
+
+
+                                   SOFTWARE
+                                   --------
+    Operating System: --
+            Compiler: gcc-build: control
+       Auto Parallel: No
+         File System: --
+        System State: --
+       Base Pointers: --
+       Peak Pointers: Not Applicable
+      Other Software: --
+
+
+                              Base Unknown Flags
+                              ------------------
+    410.bwaves: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+
+    416.gamess: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+
+      433.milc: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                "-std=gnu90" (in CPORTABILITY)
+                "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+    434.zeusmp: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+
+   435.gromacs: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-std=gnu90" (in CPORTABILITY)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+                "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+ 436.cactusADM: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-std=gnu90" (in CPORTABILITY)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+                "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+  437.leslie3d: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+
+      444.namd: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in CXX)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in LD)
+                "-O2 -fno-strict-aliasing" (in CXXOPTIMIZE)
+
+    453.povray: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in CXX)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/g++" (in LD)
+                "-O2 -fno-strict-aliasing" (in CXXOPTIMIZE)
+
+  454.calculix: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-std=gnu90" (in CPORTABILITY)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+                "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+  459.GemsFDTD: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+
+     465.tonto: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+
+       470.lbm: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                "-std=gnu90" (in CPORTABILITY)
+                "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+       481.wrf: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in FC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gfortran" (in LD)
+                "-O2 -fno-strict-aliasing" (in FOPTIMIZE)
+                "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+   482.sphinx3: "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in CC)
+                "/home/david/coding-3/gcc-build/test/control/x86_64-pc-linux-gnu/install/bin/gcc" (in LD)
+                "-std=gnu90 -fsigned-char" (in CPORTABILITY)
+                "-O2 -fno-strict-aliasing" (in COPTIMIZE)
+
+
+                            Base Portability Flags
+                            ----------------------
+    410.bwaves: -DSPEC_CPU_LP64
+    416.gamess: -DSPEC_CPU_LP64
+      433.milc: -DSPEC_CPU_LP64
+    434.zeusmp: -DSPEC_CPU_LP64
+   435.gromacs: -DSPEC_CPU_LP64
+ 436.cactusADM: -DSPEC_CPU_LP64
+  437.leslie3d: -DSPEC_CPU_LP64
+      444.namd: -DSPEC_CPU_LP64
+    453.povray: -DSPEC_CPU_LP64
+  454.calculix: -DSPEC_CPU_LP64
+  459.GemsFDTD: -DSPEC_CPU_LP64
+     465.tonto: -DSPEC_CPU_LP64
+       470.lbm: -DSPEC_CPU_LP64
+       481.wrf: -DSPEC_CPU_LP64 -DSPEC_CPU_CASE_FLAG -DSPEC_CPU_LINUX
+   482.sphinx3: -DSPEC_CPU_LP64
+
+
+    SPEC and SPECfp are registered trademarks of the Standard Performance
+    Evaluation Corporation.  All other brand and product names appearing
+    in this result are trademarks or registered trademarks of their
+    respective holders.
+##############################################################################
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+#                                                                            #
+# 'reportable' flag not set during run                                       #
+# 450.soplex (base) did not have enough runs!                                #
+# 447.dealII (base) did not have enough runs!                                #
+# 416.gamess (base) had invalid runs!                                        #
+# 450.soplex (base) had invalid runs!                                        #
+# 447.dealII (base) had invalid runs!                                        #
+# Run of 416.gamess (base) was not valid; status is VE                       #
+# Run of 447.dealII (base) was not valid; status is CE                       #
+# Run of 450.soplex (base) was not valid; status is CE                       #
+# Unknown flags were used! See                                               #
+#      http://www.spec.org/cpu2006/Docs/runspec.html#flagsurl                #
+# for information about how to get rid of this error.                        #
+# Error 416.gamess: Output miscompare                                        #
+# Error 416.gamess: Output miscompare                                        #
+# Error 416.gamess: Output miscompare                                        #
+# Error 447.dealII: Error with make!                                         #
+# Error 450.soplex: Error with make!                                         #
+#                                                                            #
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+##############################################################################
+-----------------------------------------------------------------------------
+For questions about this result, please contact the tester.
+For other inquiries, please contact webmaster@spec.org.
+Copyright 2006-2008 Standard Performance Evaluation Corporation
+Tested with SPEC CPU2006 v1.1.
+Report generated on Sat Apr 15 01:51:01 2017 by CPU2006 ASCII formatter v6128.

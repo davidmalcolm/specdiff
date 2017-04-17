@@ -28,19 +28,23 @@ class Result:
             pprint.pprint(self.results)
 
     def handle_kv_line(self, key, value):
-        # print('raw_key: %r value: %r' % (raw_key, value))
+        # print('key: %r value: %r' % (key, value))
         # TODO: parse both base and peak
         m = re.match(PAT, key)
         if m:
             suite, benchmark, index = m.groups()
             benchmark = benchmark.replace('_', '.')
             index = int(index, 10)
-            value = float(value)
-            foo_key = '%s %s' % (suite, benchmark)
-            if foo_key in self.results:
-                self.results[foo_key].append(value)
+            if value == '--':
+                # ...then the run had an error of some kind
+                value = None
             else:
-                self.results[foo_key] = [value]
+                value = float(value)
+            result_key = benchmark
+            if result_key in self.results:
+                self.results[result_key].append(value)
+            else:
+                self.results[result_key] = [value]
         else:
             self.handle_metadata_line(key, value)
 
@@ -56,17 +60,20 @@ class Result:
 class Log:
     def __init__(self, log_path):
         self.log_path = log_path
-        self.result = None
+        self.results = []
         # Parse the logfile
         with open(log_path) as f:
             for line in f:
                 # Locate the raw result file and read it
                 m = re.match(r'\s*format: raw -> (.*)', line)
                 if m:
-                    self.result = Result(m.group(1))
+                    self.results.append(Result(m.group(1)))
 
 def median(data):
-    # (taken from Python 3.4)
+    # (adapted from Python 3.4)
+    #print('data: %r' % (data, ))
+    if None in data:
+        return None
     data = sorted(data)
     n = len(data)
     if n%2 == 1:
@@ -75,13 +82,12 @@ def median(data):
         i = n//2
         return (data[i - 1] + data[i])/2
 
-def compare(path_a, path_b):
-    out = ''
-    log_a = Log(path_a)
-    log_b = Log(path_b)
-    r_a = log_a.result
-    r_b = log_b.result
-    out += 'Metadata differences:\n\n'
+def compare_results(r_a, r_b):
+    SEPARATOR = ('-' * 76) + '\n'
+    out = SEPARATOR
+    out += '%s\n' % r_a.metadata['spec.cpu2006.units'] # e.g. "SPECint"
+    out += SEPARATOR
+    out += '\nMetadata differences:\n\n'
     for key in r_a.metadata:
         if key.endswith('.lognum'):
             continue
@@ -90,31 +96,59 @@ def compare(path_a, path_b):
         if '.compopts' in key:
             continue
         m_a = r_a.metadata[key]
-        m_b = r_b.metadata[key]
+        if key in r_b.metadata:
+            m_b = r_b.metadata[key]
+        else:
+            m_b = ''
         if m_a != m_b:
             out += '%-25s| %22s| %22s|\n' % (key, m_a, m_b)
 
     out += '\nResults:\n\n'
-    out += '%20s| base\n' % ''
-    out += '%20s| %9s %9s %9s\n' % ('', 'old', 'new', '%change')
-    for key in r_a.results:
+    out += '%14s| base\n' % ''
+    out += '%14s| %9s %9s %9s\n' % ('', 'old', 'new', '%change')
+    for key in sorted(r_a.results):
         val_a = median(r_a.results[key])
         val_b = median(r_b.results[key])
-        percent_delta = (100. * val_b / val_a) - 100.
-        out += ('%-20s| %9.3f %9.3f %+9.3f%%\n'
-                % (key, val_a, val_b, percent_delta))
+        out += '%-14s|' % key
+        if val_a is not None:
+            out += ' %9.3f' % val_a
+        else:
+            out += ' %9s' % 'ERR'
+        if val_b is not None:
+            out += ' %9.3f' % val_b
+        else:
+            out += ' %9s' % 'ERR'
+        if val_a is not None and val_b is not None:
+            percent_delta = (100. * val_b / val_a) - 100.
+            out += ' %+9.3f%%' % percent_delta
+        out += '\n'
+    out += SEPARATOR
+    out += '\n'
+    return out
+
+
+def compare(path_a, path_b):
+    out = ''
+    log_a = Log(path_a)
+    log_b = Log(path_b)
+    for r_a, r_b in zip(log_a.results, log_b.results):
+        out += compare_results(r_a, r_b)
     return out
 
 class Tests(unittest.TestCase):
     def test_parsing_log(self):
         log = Log('examples/control.log')
-        r = log.result
+        r = log.results[0]
         self.assertEqual(r.metadata['spec.cpu2006.units'], 'SPECint')
-        self.assertEqual(r.results['cpu2006 401.bzip2'],
+        self.assertEqual(r.results['401.bzip2'],
                          [569.853521, 570.400417, 570.718513])
 
     def test_comparison(self):
         GOLD = '''\
+----------------------------------------------------------------------------
+SPECint
+----------------------------------------------------------------------------
+
 Metadata differences:
 
 spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
@@ -123,13 +157,96 @@ spec.cpu2006.ext         |                control|             experiment|
 
 Results:
 
-                    | base
-                    |       old       new   %change
-cpu2006 401.bzip2   |   570.400   570.201    -0.035%
+              | base
+              |       old       new   %change
+401.bzip2     |   570.400   570.201    -0.035%
+----------------------------------------------------------------------------
+
 '''
         out = compare('examples/control.log', 'examples/experiment.log')
         self.maxDiff = None
         self.assertMultiLineEqual(GOLD, out)
+
+    def test_comparison_2(self):
+        """
+        An example of comparing two runs with multiple results:
+        both INT and FP, each with multiple benchmarks, some of
+        which failed.
+        The runs were performed on a busy workstation, so the actual
+        "performance" numbers aren't meaningful.
+        """
+        GOLD = '''\
+----------------------------------------------------------------------------
+SPECint
+----------------------------------------------------------------------------
+
+Metadata differences:
+
+spec.cpu2006.time        |             1492184836|             1492098593|
+spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
+spec.cpu2006.ext         |                control|             experiment|
+
+Results:
+
+              | base
+              |       old       new   %change
+400.perlbench |       ERR       ERR
+401.bzip2     |   570.843   570.383    -0.081%
+403.gcc       |   403.923   404.616    +0.172%
+429.mcf       |   495.237   511.106    +3.204%
+445.gobmk     |   572.417   573.399    +0.171%
+456.hmmer     |   556.894   580.359    +4.213%
+458.sjeng     |   698.833   699.407    +0.082%
+462.libquantum|   983.887  1303.206   +32.455%
+464.h264ref   |   873.956   877.278    +0.380%
+471.omnetpp   |   376.051   375.554    -0.132%
+473.astar     |   465.433   468.050    +0.562%
+483.xalancbmk |   330.344   314.954    -4.659%
+----------------------------------------------------------------------------
+
+----------------------------------------------------------------------------
+SPECfp
+----------------------------------------------------------------------------
+
+Metadata differences:
+
+spec.cpu2006.time        |             1492184836|             1492098593|
+spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
+spec.cpu2006.ext         |                control|             experiment|
+
+Results:
+
+              | base
+              |       old       new   %change
+410.bwaves    |   917.484   920.926    +0.375%
+416.gamess    |   295.645   297.595    +0.660%
+433.milc      |   601.932   599.716    -0.368%
+434.zeusmp    |   687.386   589.094   -14.299%
+435.gromacs   |   498.214   497.178    -0.208%
+437.leslie3d  |   650.444   643.043    -1.138%
+444.namd      |   495.958   496.276    +0.064%
+450.soplex    |       ERR       ERR
+453.povray    |   253.938   253.227    -0.280%
+454.calculix  |  1087.669  1086.882    -0.072%
+465.tonto     |   708.330   705.979    -0.332%
+470.lbm       |   526.411   526.977    +0.107%
+481.wrf       |   800.210   801.400    +0.149%
+482.sphinx3   |   707.022   713.430    +0.906%
+----------------------------------------------------------------------------
+
+'''
+        out = compare('examples/CPU2006.037.log', 'examples/CPU2006.035.log')
+        self.maxDiff = None
+        self.assertMultiLineEqual(GOLD, out)
+
+    # TODO: compare control vs newer examples (both ways)
+    # FIXME:
+    #  * note that this one has two .rsf files (INT and FP)
+    #  * need to detect "Output Miscompare" and other issues
+    #  * handle tests appearing/disappearing between runs
+    #  * do the build errors show up in the log (they should show up in the
+    #    comparison)
+
 
 if len(sys.argv) == 1:
     unittest.main()
