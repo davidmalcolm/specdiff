@@ -12,10 +12,12 @@ class Result:
     """
     Parse a raw SPEC result (.rsf in SPEC2006, .raw for SPEC2000)
     """
-    def __init__(self, result_path):
+    def __init__(self):
         self.metadata = {} # OrderedDict()
         # Map of benchmark names to lists of floats
         self.results = {} # OrderedDict()
+
+    def parse(self, result_path):
         with open(result_path) as f:
             for line in f:
                 #print(repr(line))
@@ -55,23 +57,30 @@ class Result:
             return
         if '.results.' in key:
             return
+        if '.cfidx' in key:
+            return
         self.metadata[key] = value
 
 class Log:
     def __init__(self, log_path):
         self.log_path = log_path
-        self.results = []
+        self.results = {}
         # Parse the logfile
         with open(log_path) as f:
             for line in f:
                 # Locate the raw result file and read it
                 m = re.match(r'\s*format: raw -> (.*)', line)
                 if m:
-                    self.results.append(Result(m.group(1)))
+                    r = Result()
+                    r.parse(m.group(1))
+                    metric = r.metadata['spec.cpu2006.metric']
+                    self.results[metric] = r
 
 def median(data):
     # (adapted from Python 3.4)
     #print('data: %r' % (data, ))
+    if data is None:
+        return None
     if None in data:
         return None
     data = sorted(data)
@@ -82,33 +91,39 @@ def median(data):
         i = n//2
         return (data[i - 1] + data[i])/2
 
-def compare_results(r_a, r_b):
+def sorted_union(seq_a, seq_b):
+    """
+    Given a pair of sequences, return a sorted list of the union
+    of the two sequences.
+    """
+    return sorted(set(seq_a).union(set(seq_b)))
+
+def compare_results(metric, r_a, r_b):
+    """Compare two Result instances, for the given metric."""
     SEPARATOR = ('-' * 76) + '\n'
     out = SEPARATOR
-    out += '%s\n' % r_a.metadata['spec.cpu2006.units'] # e.g. "SPECint"
+    out += '%s\n' % metric # e.g. "CINT2006"
     out += SEPARATOR
-    out += '\nMetadata differences:\n\n'
-    for key in r_a.metadata:
-        if key.endswith('.lognum'):
-            continue
-        if key.endswith('.rawhash'):
-            continue
-        if '.compopts' in key:
-            continue
-        m_a = r_a.metadata[key]
-        if key in r_b.metadata:
-            m_b = r_b.metadata[key]
-        else:
-            m_b = ''
-        if m_a != m_b:
-            out += '%-25s| %22s| %22s|\n' % (key, m_a, m_b)
+    if r_a.metadata and r_b.metadata:
+        out += '\nMetadata differences:\n\n'
+        for key in sorted_union(r_a.metadata, r_b.metadata):
+            if key.endswith('.lognum'):
+                continue
+            if key.endswith('.rawhash'):
+                continue
+            if '.compopts' in key:
+                continue
+            m_a = r_a.metadata.get(key, '')
+            m_b = r_b.metadata.get(key, '')
+            if m_a != m_b:
+                out += '%-25s| %22s| %22s|\n' % (key, m_a, m_b)
 
     out += '\nResults:\n\n'
     out += '%14s| base\n' % ''
     out += '%14s| %9s %9s %9s\n' % ('', 'old', 'new', '%change')
-    for key in sorted(r_a.results):
-        val_a = median(r_a.results[key])
-        val_b = median(r_b.results[key])
+    for key in sorted_union(r_a.results, r_b.results):
+        val_a = median(r_a.results.get(key, None))
+        val_b = median(r_b.results.get(key, None))
         out += '%-14s|' % key
         if val_a is not None:
             out += ' %9.3f' % val_a
@@ -131,29 +146,32 @@ def compare(path_a, path_b):
     out = ''
     log_a = Log(path_a)
     log_b = Log(path_b)
-    for r_a, r_b in zip(log_a.results, log_b.results):
-        out += compare_results(r_a, r_b)
+    for metric in sorted_union(log_a.results, log_b.results):
+        r_a = log_a.results.get(metric, Result())
+        r_b = log_b.results.get(metric, Result())
+        out += compare_results(metric, r_a, r_b)
     return out
 
 class Tests(unittest.TestCase):
     def test_parsing_log(self):
         log = Log('examples/control.log')
-        r = log.results[0]
+        r = log.results['CINT2006']
         self.assertEqual(r.metadata['spec.cpu2006.units'], 'SPECint')
+        self.assertEqual(r.metadata['spec.cpu2006.metric'], 'CINT2006')
         self.assertEqual(r.results['401.bzip2'],
                          [569.853521, 570.400417, 570.718513])
 
     def test_comparison(self):
         GOLD = '''\
 ----------------------------------------------------------------------------
-SPECint
+CINT2006
 ----------------------------------------------------------------------------
 
 Metadata differences:
 
+spec.cpu2006.ext         |                control|             experiment|
 spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
 spec.cpu2006.time        |             1492060566|             1492032050|
-spec.cpu2006.ext         |                control|             experiment|
 
 Results:
 
@@ -177,42 +195,14 @@ Results:
         """
         GOLD = '''\
 ----------------------------------------------------------------------------
-SPECint
+CFP2006
 ----------------------------------------------------------------------------
 
 Metadata differences:
 
-spec.cpu2006.time        |             1492184836|             1492098593|
-spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
 spec.cpu2006.ext         |                control|             experiment|
-
-Results:
-
-              | base
-              |       old       new   %change
-400.perlbench |       ERR       ERR
-401.bzip2     |   570.843   570.383    -0.081%
-403.gcc       |   403.923   404.616    +0.172%
-429.mcf       |   495.237   511.106    +3.204%
-445.gobmk     |   572.417   573.399    +0.171%
-456.hmmer     |   556.894   580.359    +4.213%
-458.sjeng     |   698.833   699.407    +0.082%
-462.libquantum|   983.887  1303.206   +32.455%
-464.h264ref   |   873.956   877.278    +0.380%
-471.omnetpp   |   376.051   375.554    -0.132%
-473.astar     |   465.433   468.050    +0.562%
-483.xalancbmk |   330.344   314.954    -4.659%
-----------------------------------------------------------------------------
-
-----------------------------------------------------------------------------
-SPECfp
-----------------------------------------------------------------------------
-
-Metadata differences:
-
-spec.cpu2006.time        |             1492184836|             1492098593|
 spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
-spec.cpu2006.ext         |                control|             experiment|
+spec.cpu2006.time        |             1492184836|             1492098593|
 
 Results:
 
@@ -234,16 +224,187 @@ Results:
 482.sphinx3   |   707.022   713.430    +0.906%
 ----------------------------------------------------------------------------
 
+----------------------------------------------------------------------------
+CINT2006
+----------------------------------------------------------------------------
+
+Metadata differences:
+
+spec.cpu2006.ext         |                control|             experiment|
+spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
+spec.cpu2006.time        |             1492184836|             1492098593|
+
+Results:
+
+              | base
+              |       old       new   %change
+400.perlbench |       ERR       ERR
+401.bzip2     |   570.843   570.383    -0.081%
+403.gcc       |   403.923   404.616    +0.172%
+429.mcf       |   495.237   511.106    +3.204%
+445.gobmk     |   572.417   573.399    +0.171%
+456.hmmer     |   556.894   580.359    +4.213%
+458.sjeng     |   698.833   699.407    +0.082%
+462.libquantum|   983.887  1303.206   +32.455%
+464.h264ref   |   873.956   877.278    +0.380%
+471.omnetpp   |   376.051   375.554    -0.132%
+473.astar     |   465.433   468.050    +0.562%
+483.xalancbmk |   330.344   314.954    -4.659%
+----------------------------------------------------------------------------
+
 '''
         out = compare('examples/CPU2006.037.log', 'examples/CPU2006.035.log')
         self.maxDiff = None
         self.assertMultiLineEqual(GOLD, out)
 
-    # TODO: compare control vs newer examples (both ways)
+    def test_comparison_results_appearing(self):
+        """
+        Example of comparing a run of just 401.bzip2 with a run
+        of multiple INT and FP benchmarks.
+        """
+        GOLD = '''\
+----------------------------------------------------------------------------
+CFP2006
+----------------------------------------------------------------------------
+
+Results:
+
+              | base
+              |       old       new   %change
+410.bwaves    |       ERR   920.926
+416.gamess    |       ERR   297.595
+433.milc      |       ERR   599.716
+434.zeusmp    |       ERR   589.094
+435.gromacs   |       ERR   497.178
+437.leslie3d  |       ERR   643.043
+444.namd      |       ERR   496.276
+450.soplex    |       ERR       ERR
+453.povray    |       ERR   253.227
+454.calculix  |       ERR  1086.882
+465.tonto     |       ERR   705.979
+470.lbm       |       ERR   526.977
+481.wrf       |       ERR   801.400
+482.sphinx3   |       ERR   713.430
+----------------------------------------------------------------------------
+
+----------------------------------------------------------------------------
+CINT2006
+----------------------------------------------------------------------------
+
+Metadata differences:
+
+spec.cpu2006.errors001   | 471.omnetpp (base) did not have enough runs!| 400.perlbench (base) did not have enough runs!|
+spec.cpu2006.errors002   | 456.hmmer (base) did not have enough runs!| 400.perlbench (base) had invalid runs!|
+spec.cpu2006.errors003   | 445.gobmk (base) did not have enough runs!| Run of 400.perlbench (base) was not valid; status is CE|
+spec.cpu2006.errors004   | 458.sjeng (base) did not have enough runs!|                       |
+spec.cpu2006.errors005   | 429.mcf (base) did not have enough runs!|                       |
+spec.cpu2006.errors006   | 473.astar (base) did not have enough runs!|                       |
+spec.cpu2006.errors007   | 483.xalancbmk (base) did not have enough runs!|                       |
+spec.cpu2006.errors008   | 400.perlbench (base) did not have enough runs!|                       |
+spec.cpu2006.errors009   | 464.h264ref (base) did not have enough runs!|                       |
+spec.cpu2006.errors010   | 462.libquantum (base) did not have enough runs!|                       |
+spec.cpu2006.errors011   | 403.gcc (base) did not have enough runs!|                       |
+spec.cpu2006.ext         |                control|             experiment|
+spec.cpu2006.sw_compiler |     gcc-build: control|  gcc-build: experiment|
+spec.cpu2006.time        |             1492060566|             1492098593|
+
+Results:
+
+              | base
+              |       old       new   %change
+400.perlbench |       ERR       ERR
+401.bzip2     |   570.400   570.383    -0.003%
+403.gcc       |       ERR   404.616
+429.mcf       |       ERR   511.106
+445.gobmk     |       ERR   573.399
+456.hmmer     |       ERR   580.359
+458.sjeng     |       ERR   699.407
+462.libquantum|       ERR  1303.206
+464.h264ref   |       ERR   877.278
+471.omnetpp   |       ERR   375.554
+473.astar     |       ERR   468.050
+483.xalancbmk |       ERR   314.954
+----------------------------------------------------------------------------
+
+'''
+        out = compare('examples/control.log', 'examples/CPU2006.035.log')
+        self.maxDiff = None
+        self.assertMultiLineEqual(GOLD, out)
+
+    def test_comparison_results_disappearing(self):
+        """
+        Example of comparing a run of multiple INT and FP benchmarks
+        to a run with just 401.bzip2.
+        """
+        GOLD = '''\
+----------------------------------------------------------------------------
+CFP2006
+----------------------------------------------------------------------------
+
+Results:
+
+              | base
+              |       old       new   %change
+410.bwaves    |   920.926       ERR
+416.gamess    |   297.595       ERR
+433.milc      |   599.716       ERR
+434.zeusmp    |   589.094       ERR
+435.gromacs   |   497.178       ERR
+437.leslie3d  |   643.043       ERR
+444.namd      |   496.276       ERR
+450.soplex    |       ERR       ERR
+453.povray    |   253.227       ERR
+454.calculix  |  1086.882       ERR
+465.tonto     |   705.979       ERR
+470.lbm       |   526.977       ERR
+481.wrf       |   801.400       ERR
+482.sphinx3   |   713.430       ERR
+----------------------------------------------------------------------------
+
+----------------------------------------------------------------------------
+CINT2006
+----------------------------------------------------------------------------
+
+Metadata differences:
+
+spec.cpu2006.errors001   | 400.perlbench (base) did not have enough runs!| 471.omnetpp (base) did not have enough runs!|
+spec.cpu2006.errors002   | 400.perlbench (base) had invalid runs!| 456.hmmer (base) did not have enough runs!|
+spec.cpu2006.errors003   | Run of 400.perlbench (base) was not valid; status is CE| 445.gobmk (base) did not have enough runs!|
+spec.cpu2006.errors004   |                       | 458.sjeng (base) did not have enough runs!|
+spec.cpu2006.errors005   |                       | 429.mcf (base) did not have enough runs!|
+spec.cpu2006.errors006   |                       | 473.astar (base) did not have enough runs!|
+spec.cpu2006.errors007   |                       | 483.xalancbmk (base) did not have enough runs!|
+spec.cpu2006.errors008   |                       | 400.perlbench (base) did not have enough runs!|
+spec.cpu2006.errors009   |                       | 464.h264ref (base) did not have enough runs!|
+spec.cpu2006.errors010   |                       | 462.libquantum (base) did not have enough runs!|
+spec.cpu2006.errors011   |                       | 403.gcc (base) did not have enough runs!|
+spec.cpu2006.time        |             1492098593|             1492032050|
+
+Results:
+
+              | base
+              |       old       new   %change
+400.perlbench |       ERR       ERR
+401.bzip2     |   570.383   570.201    -0.032%
+403.gcc       |   404.616       ERR
+429.mcf       |   511.106       ERR
+445.gobmk     |   573.399       ERR
+456.hmmer     |   580.359       ERR
+458.sjeng     |   699.407       ERR
+462.libquantum|  1303.206       ERR
+464.h264ref   |   877.278       ERR
+471.omnetpp   |   375.554       ERR
+473.astar     |   468.050       ERR
+483.xalancbmk |   314.954       ERR
+----------------------------------------------------------------------------
+
+'''
+        out = compare('examples/CPU2006.035.log', 'examples/experiment.log')
+        self.maxDiff = None
+        self.assertMultiLineEqual(GOLD, out)
+
     # FIXME:
-    #  * note that this one has two .rsf files (INT and FP)
     #  * need to detect "Output Miscompare" and other issues
-    #  * handle tests appearing/disappearing between runs
     #  * do the build errors show up in the log (they should show up in the
     #    comparison)
 
